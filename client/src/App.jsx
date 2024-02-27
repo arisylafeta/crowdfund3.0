@@ -1,0 +1,30 @@
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { ThirdwebProvider, useContract } from '@thirdweb-dev/react';
+
+import { Sidebar, Navbar } from './components';
+import { CampaignDetails, CreateCampaign, Home, Profile } from './pages';
+
+const App = () => {
+  const { contract } = useContract('0x1Ff1958d850e579CFFdD3Df7667B7ED7dD9A4F1E');
+  return (
+    <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">
+      <div className="sm:flex hidden mr-10 relative">
+        <Sidebar />
+      </div>
+
+      <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/create-campaign" element={<CreateCampaign />} />
+          <Route path="/campaign-details/:id" element={<CampaignDetails />} />
+        </Routes>
+      </div>
+    </div>
+  )
+}
+
+export default App
